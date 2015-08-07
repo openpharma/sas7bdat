@@ -555,7 +555,12 @@ SAS7BDAT object
         elif fmt == 'time':
             val = (datetime(1960, 1, 1) + timedelta(seconds=val)).time()
         elif fmt == 'date':
-            val = (datetime(1960, 1, 1) + timedelta(days=val)).date()
+            try:
+                val = (datetime(1960, 1, 1) + timedelta(days=val)).date()
+            except OverflowError:
+                # Some data sets flagged with a date format are actually
+                # stored as datetime values
+                val = datetime(1960, 1, 1) + timedelta(seconds=val)
         return val
 
     def readlines(self):
