@@ -787,7 +787,7 @@ SAS7BDAT object
         """
         import pandas as pd
         data = list(self.readlines())
-        return pd.DataFrame([dict(list(zip(data[0], x))) for x in data[1:]])
+        return pd.DataFrame(data[1:], columns=data[0])
 
 
 class Column(object):
