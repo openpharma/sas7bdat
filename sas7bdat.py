@@ -50,7 +50,14 @@ def _get_color_emit(prefix, fn):
             color = '\x1b[35m'  # pink
         else:
             color = '\x1b[0m'   # normal
-        handler.msg = '%s[%s] %s%s' % (color, prefix, handler.msg, '\x1b[0m')
+        try:
+            handler.msg = '%s[%s] %s%s' % (
+                color, prefix, handler.msg, '\x1b[0m'
+            )
+        except UnicodeDecodeError:
+            handler.msg = '%s[%s] %s%s' % (
+                color, prefix, handler.msg.decode('utf-8'), '\x1b[0m'
+            )
         return fn(handler)
     return _new
 
@@ -770,7 +777,7 @@ SAS7BDAT object
                 except IOError:
                     self.logger.warn('wrote %s lines before interruption', i)
                     break
-            self.logger.info(u'\u27f6 [%s] wrote %s of %s lines',
+            self.logger.info('\u27f6 [%s] wrote %s of %s lines',
                              os.path.basename(out_file), i - 1,
                              self.properties.row_count or 0)
         finally:
