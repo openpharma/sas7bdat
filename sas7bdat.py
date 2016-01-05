@@ -103,11 +103,11 @@ class RLEDecompressor(Decompressor):
             if i != j:
                 continue
             control_byte = b(page[offset + i]) & 0xF0
-            end_of_first_byte = int(b(page[offset + i]) & 0x0F)
+            end_of_first_byte = b(page[offset + i]) & 0x0F
             if control_byte == 0x00:
                 if i != (length - 1):
                     count_of_bytes_to_copy = (
-                        int(b(page[offset + i + 1]) & 0xFF) +
+                        (b(page[offset + i + 1]) & 0xFF) +
                         64 +
                         end_of_first_byte * 256
                     )
@@ -127,13 +127,13 @@ class RLEDecompressor(Decompressor):
                 i += 2
             elif control_byte == 0x60:
                 for _ in xrange(end_of_first_byte * 256 +
-                                int(b(page[offset + i + 1]) & 0xFF) + 17):
+                                (b(page[offset + i + 1]) & 0xFF) + 17):
                     result.append(c(0x20))
                     current_result_array_index += 1
                 i += 1
             elif control_byte == 0x70:
                 for _ in xrange(end_of_first_byte * 256 +
-                                int(b(page[offset + i + 1]) & 0xFF) + 17):
+                                (b(page[offset + i + 1]) & 0xFF) + 17):
                     result.append(c(0x00))
                     current_result_array_index += 1
                 i += 1
