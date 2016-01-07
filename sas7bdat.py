@@ -132,7 +132,8 @@ class RLEDecompressor(Decompressor):
                     current_result_array_index += 1
                 i += 1
             elif control_byte == 0x70:
-                for _ in xrange((b(page[offset + i + 1]) & 0xFF) + 17):
+                for _ in xrange(end_of_first_byte * 256 +
+                                (b(page[offset + i + 1]) & 0xFF) + 17):
                     result.append(c(0x00))
                     current_result_array_index += 1
                 i += 1
@@ -189,7 +190,13 @@ class RLEDecompressor(Decompressor):
                 self.parent.logger.error('unknown control byte: %s',
                                          control_byte)
             i += 1
-        return b''.join(result)
+
+        result = b''.join(result)
+        if len(result) != result_length:
+            self.parent.logger.error('unexpected result length: %d != %d' %
+                                     (len(result), result_length))
+
+        return result
 
 
 class RDCDecompressor(Decompressor):
