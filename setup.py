@@ -30,7 +30,6 @@ setup(name='sas7bdat',
       description='A sas7bdat file reader for Python',
       long_description=convert_file('README.md', 'rst'),
       packages=find_packages(),
-      #scripts=['scripts/sas7bdat_to_csv'],
       install_requires=['six>=1.8.0'],
       classifiers=[
           'Development Status :: 5 - Production/Stable',
