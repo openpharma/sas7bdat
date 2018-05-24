@@ -22,7 +22,7 @@ if sys.version_info < (2, 6):
 
 
 setup(name='sas7bdat',
-      version='2.0.8',
+      version='2.0.9',
       author='Jared Hobbs',
       author_email='jared@pyhacker.com',
       license='MIT',
