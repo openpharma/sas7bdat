@@ -3,4 +3,4 @@
 build/*
 dist/*
 test_files/*
-MANIFEST
+*.egg-info
