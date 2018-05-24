@@ -22,7 +22,7 @@ if sys.version_info < (2, 6):
 
 
 setup(name='sas7bdat',
-      version='2.0.9',
+      version='2.1.0',
       author='Jared Hobbs',
       author_email='jared@pyhacker.com',
       license='MIT',
@@ -39,6 +39,7 @@ setup(name='sas7bdat',
           'License :: OSI Approved :: MIT License',
           'Operating System :: OS Independent',
           'Programming Language :: Python :: 2.6',
+          'Programming Language :: Python :: 2.7',
           'Programming Language :: Python :: 3',
           'Topic :: Text Processing',
           'Topic :: Utilities',

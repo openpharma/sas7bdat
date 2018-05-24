@@ -13,6 +13,7 @@ import os
 import platform
 import struct
 import sys
+from codecs import open
 from datetime import datetime, timedelta
 
 import six
@@ -745,7 +746,8 @@ SAS7BDAT object
                 ).decode(self.encoding, self.encoding_errors))
         return row_elements
 
-    def convert_file(self, out_file, delimiter=',', step_size=100000):
+    def convert_file(self, out_file, delimiter=',', step_size=100000,
+                     encoding=None):
         """
         convert_file(out_file[, delimiter[, step_size]]) -> None
 
@@ -761,7 +763,7 @@ SAS7BDAT object
             if out_file == '-':
                 out_f = sys.stdout
             else:
-                out_f = open(out_file, 'w')
+                out_f = open(out_file, 'w', encoding=encoding)
             out = csv.writer(out_f, lineterminator='\n', delimiter=delimiter)
             i = 0
             for i, line in enumerate(self, 1):
