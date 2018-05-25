@@ -3,7 +3,6 @@ from __future__ import division, absolute_import, print_function,\
     unicode_literals
 import sys
 from distutils.core import setup
-from setuptools import find_packages
 
 try:
     from pypandoc import convert_file
@@ -22,14 +21,15 @@ if sys.version_info < (2, 6):
 
 
 setup(name='sas7bdat',
-      version='2.1.0',
+      version='2.1.1',
       author='Jared Hobbs',
       author_email='jared@pyhacker.com',
       license='MIT',
       url='https://bitbucket.org/jaredhobbs/sas7bdat',
       description='A sas7bdat file reader for Python',
       long_description=convert_file('README.md', 'rst'),
-      packages=find_packages(),
+      py_modules=['sas7bdat'],
+      scripts=['scripts/sas7bdat_to_csv'],
       install_requires=['six>=1.8.0'],
       classifiers=[
           'Development Status :: 5 - Production/Stable',
