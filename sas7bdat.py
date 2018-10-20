@@ -374,15 +374,20 @@ class RDCDecompressor(Decompressor):
 class SAS7BDAT(object):
     """
     SAS7BDAT(path[, log_level[, extra_time_format_strings[, \
-extra_date_time_format_strings[, extra_date_format_strings]]]]) -> \
+extra_date_time_format_strings[, extra_date_format_strings[, \
+fh=fh]]]]]) -> \
 SAS7BDAT object
 
-    Open a SAS7BDAT file. The log level are standard logging levels
-    (defaults to logging.INFO).
+    Open a SAS7BDAT file or use an existing file handle.
+    The log level are standard logging levels (defaults to logging.INFO).
 
     If your sas7bdat file uses non-standard format strings for time, datetime,
     or date values, pass those strings into the constructor using the
     appropriate kwarg.
+
+    The file will be opened from the path supplied, unless a file handle
+    is supplied. The file handle should be opened in binary mode for
+    correct operation.
     """
     _open_files = []
     RLE_COMPRESSION = b'SASYZCRL'
@@ -411,7 +416,8 @@ SAS7BDAT object
                  skip_header=False,
                  encoding='utf8',
                  encoding_errors='ignore',
-                 align_correction=True):
+                 align_correction=True,
+                 fh=None):
         """
         x.__init__(...) initializes x; see help(type(x)) for signature
         """
@@ -434,7 +440,7 @@ SAS7BDAT object
         self.encoding = encoding
         self.encoding_errors = encoding_errors
         self.align_correction = align_correction
-        self._file = open(self.path, 'rb')
+        self._file = fh or open(self.path, 'rb')
         self._open_files.append(self._file)
         self.cached_page = None
         self.current_page_type = None
