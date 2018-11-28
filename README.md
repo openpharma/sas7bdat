@@ -28,17 +28,31 @@ object is iterable so you can read the contents like this:
 ```
 #!python
 from sas7bdat import SAS7BDAT
-with SAS7BDAT('foo.sas7bdat') as f:
-    for row in f:
+with SAS7BDAT('foo.sas7bdat', skip_header=True) as reader:
+    for row in reader:
         print row
 ```
 
-The values in each row will be a `string`, `float`, `datetime.date`,
-`datetime.datetime`, or `datetime.time` instance.
+Each row will be a list of values of type `string`, `float`, `datetime.date`,
+`datetime.datetime`, or `datetime.time`. Without `skip_header`, the first row
+returned will be the SAS variable names.
 
 If you'd like to get a pandas DataFrame, use the `to_data_frame` method:
 
 ```
 #!python
-df = f.to_data_frame()
+df = reader.to_data_frame()
 ```
+
+[Variable
+attributes](https://support.sas.com/documentation/cdl/en/lrcon/65287/HTML/default/viewer.htm#n08fs0rt7fikeln1uh0t8v5pt25d.htm)
+are available from `reader.columns`. The order of these columns will be the same
+as the corresponding values in each `row`. Each `Column` has the following
+attributes:
+
+* `col_id` (`int`) - the column number
+* `name` (`bytes`)
+* `label` (`bytes`)
+* `format` (`str`)
+* `type` (`str`)
+* `length` (`int`)
