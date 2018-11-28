@@ -33,8 +33,8 @@ with SAS7BDAT('foo.sas7bdat') as reader:
         print row
 ```
 
-The values in each row will be a `string`, `float`, `datetime.date`,
-`datetime.datetime`, or `datetime.time` instance.
+Each row will be a list of values of type `string`, `float`, `datetime.date`,
+`datetime.datetime`, or `datetime.time`.
 
 If you'd like to get a pandas DataFrame, use the `to_data_frame` method:
 
@@ -42,3 +42,16 @@ If you'd like to get a pandas DataFrame, use the `to_data_frame` method:
 #!python
 df = reader.to_data_frame()
 ```
+
+[Variable
+attributes](https://support.sas.com/documentation/cdl/en/lrcon/65287/HTML/default/viewer.htm#n08fs0rt7fikeln1uh0t8v5pt25d.htm)
+are available from `reader.columns`. The order of these columns will be the same
+as the corresponding values in each `row`. Each `Column` has the following
+attributes:
+
+* `col_id` (`int`) - the column number
+* `name` (`bytes`)
+* `label` (`bytes`)
+* `format` (`str`)
+* `type` (`str`)
+* `length` (`int`)
