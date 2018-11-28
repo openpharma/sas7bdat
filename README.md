@@ -22,6 +22,12 @@ add support for the file.
 Usage
 =====
 
+To install, run:
+
+```
+pip install sas7bdat
+```
+
 To create a sas7bdat object, simply pass the constructor a file path. The
 object is iterable so you can read the contents like this:
 
