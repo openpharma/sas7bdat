@@ -28,13 +28,14 @@ object is iterable so you can read the contents like this:
 ```
 #!python
 from sas7bdat import SAS7BDAT
-with SAS7BDAT('foo.sas7bdat') as reader:
+with SAS7BDAT('foo.sas7bdat', skip_header=True) as reader:
     for row in reader:
         print row
 ```
 
 Each row will be a list of values of type `string`, `float`, `datetime.date`,
-`datetime.datetime`, or `datetime.time`.
+`datetime.datetime`, or `datetime.time`. Without `skip_header`, the first row
+returned will be the SAS variable names.
 
 If you'd like to get a pandas DataFrame, use the `to_data_frame` method:
 
