@@ -28,8 +28,8 @@ object is iterable so you can read the contents like this:
 ```
 #!python
 from sas7bdat import SAS7BDAT
-with SAS7BDAT('foo.sas7bdat') as f:
-    for row in f:
+with SAS7BDAT('foo.sas7bdat') as reader:
+    for row in reader:
         print row
 ```
 
@@ -40,5 +40,5 @@ If you'd like to get a pandas DataFrame, use the `to_data_frame` method:
 
 ```
 #!python
-df = f.to_data_frame()
+df = reader.to_data_frame()
 ```
