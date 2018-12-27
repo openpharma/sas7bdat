@@ -363,7 +363,7 @@ SAS7BDAT object
         self.header = SASHeader(self)
         self.properties = self.header.properties
         self.header.parse_metadata()
-        self.logger.debug('\n%s', str(self.header))
+        self.logger.debug('\n%s', self.header)
         self._iter = self.readlines()
 
     def __repr__(self):
