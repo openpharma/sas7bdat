@@ -32,6 +32,8 @@ def main(options, args):
     opts = {}
     if options.no_align_correction:
         opts['align_correction'] = False
+    if options.no_strip_whitespace:
+        opts['strip_whitespace_from_strings'] = False
     successes = 0
     errors = []
     for i in xrange(len(in_files)):
@@ -90,6 +92,11 @@ if __name__ == '__main__':
                       help="Certain files raise an exception when processing "
                            "data with alignment correction turned on. Use "
                            "this flag to disable alignment correction.")
+    parser.add_option('--no-strip-whitespace', action='store_true',
+                      default=False,
+                      help="By default, whitespace is stripped from string "
+                           "type data. Use this flag to disable this "
+                           "behavior.")
     options, args = parser.parse_args()
     if len(args) < 1:
         parser.print_help()

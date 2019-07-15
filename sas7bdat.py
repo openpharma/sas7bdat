@@ -322,7 +322,7 @@ SAS7BDAT object
                  encoding='utf8',
                  encoding_errors='ignore',
                  align_correction=True,
-                 fh=None):
+                 fh=None, strip_whitespace_from_strings=True):
         """
         x.__init__(...) initializes x; see help(type(x)) for signature
         """
@@ -342,6 +342,7 @@ SAS7BDAT object
             self.DATE_FORMAT_STRINGS, extra_date_format_strings
         )
         self.skip_header = skip_header
+        self.strip_whitespace_from_strings = strip_whitespace_from_strings
         self.encoding = encoding
         self.encoding_errors = encoding_errors
         self.align_correction = align_correction
@@ -473,7 +474,9 @@ SAS7BDAT object
             newfmt = '<%s' % newfmt
         val = struct.unpack(str(newfmt), raw_bytes[:size])[0]
         if fmt == 's':
-            val = val.strip(b'\x00').strip()
+            val = val.strip(b'\x00')
+            if self.strip_whitespace_from_strings:
+                val = val.strip()
         elif math.isnan(val):
             val = None
         elif fmt == 'datetime':
