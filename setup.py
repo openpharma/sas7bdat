@@ -4,15 +4,8 @@ from __future__ import division, absolute_import, print_function,\
 import sys
 from distutils.core import setup
 
-try:
-    from pypandoc import convert_file
-except ImportError:
-    print('warning: pypandoc not found, could not convert Markdown to RST.')
-
-    def convert_file(filename, to):
-        with open(filename, 'r') as f:
-            data = f.read()
-        return data
+with open('README.md', 'r') as f:
+    long_description = f.read()
 
 
 if sys.version_info < (2, 6):
@@ -27,7 +20,8 @@ setup(name='sas7bdat',
       license='MIT',
       url='https://bitbucket.org/jaredhobbs/sas7bdat',
       description='A sas7bdat file reader for Python',
-      long_description=convert_file('README.md', 'rst'),
+      long_description=long_description,
+      long_description_content_type='text/markdown',
       py_modules=['sas7bdat'],
       scripts=['scripts/sas7bdat_to_csv'],
       install_requires=['six>=1.8.0'],
