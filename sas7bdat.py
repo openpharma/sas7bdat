@@ -699,10 +699,14 @@ SAS7BDAT object
                     out.writerow(line)
                 except IOError:
                     self.logger.warn('wrote %s lines before interruption', i)
+                    success = False
                     break
             self.logger.info('\u27f6 [%s] wrote %s of %s lines',
                              os.path.basename(out_file), i - 1,
                              self.properties.row_count or 0)
+        except Exception:
+            self.logger.exception()
+            success = False
         finally:
             if out_f is not None:
                 out_f.close()
