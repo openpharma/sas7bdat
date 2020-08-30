@@ -896,7 +896,7 @@ class ColumnTextSubheader(ProcessingSubheader):
                 vals[offset + (20 if self.properties.u64 else 16)],
                 8
             ).strip()
-            if compression_literal == '':
+            if len(compression_literal) == 0:
                 self.properties.lcs = 0
                 vals = self.parent._read_bytes({
                     offset + 16 + (20 if self.properties.u64 else 16):
@@ -931,6 +931,8 @@ class ColumnTextSubheader(ProcessingSubheader):
                     self.properties.lcs
                 )
                 self.properties.creator = creator
+
+ 
 
 
 class ColumnNameSubheader(ProcessingSubheader):
@@ -972,6 +974,9 @@ class ColumnNameSubheader(ProcessingSubheader):
             self.parent.column_names.append(
                 name_str[col_offset:col_offset + col_len]
             )
+            if i == 0:
+                self.properties.label = name_str[28+self.int_length:col_offset]
+
 
 
 class ColumnAttributesSubheader(ProcessingSubheader):
@@ -1112,6 +1117,7 @@ class SASProperties(object):
         self.endianess = None
         self.platform = None
         self.name = None
+        self.label = None
         self.file_type = None
         self.date_created = None
         self.date_modified = None
