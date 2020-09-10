@@ -975,7 +975,7 @@ class ColumnNameSubheader(ProcessingSubheader):
                 name_str[col_offset:col_offset + col_len]
             )
             if i == 0:
-                self.properties.label = name_str[28+self.int_length:col_offset]
+                self.properties.label = name_str[36+8*(self.properties.compression is not None):col_offset]
 
 
 
